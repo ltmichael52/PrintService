@@ -73,6 +73,7 @@ body.dark {
     z-index: 2;
 }
 
+
 .sidebar.close {
     width: 132px; /* tăng 50% */
 }
@@ -300,6 +301,7 @@ body.dark .switch::before {
     background-color: var(--body-color);
     transition: var(--tran-05);
 }
+
 
 .home .text {
     font-size: 60px;

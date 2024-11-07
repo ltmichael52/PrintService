@@ -1,0 +1,41 @@
+.card-img-top{
+    height: 170px;
+}
+.text-muted {
+    color: #919aa3 !important;
+}
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
+    border: none;
+    margin-bottom: 30px;
+}
+.user-card-full {
+    overflow: hidden;
+}
+.user-card-full{
+    color: #919aa3;
+}
+.user-card-full-printer{
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: white;
+}
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px;
+}
+.user-card-full .social-link li {
+    display: inline-block;
+}
+
+.user-card-full .social-link li a {
+    font-size: 20px;
+    margin: 0 10px 0 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.printer-link {
+    text-decoration: none;
+    color: inherit;
+}
