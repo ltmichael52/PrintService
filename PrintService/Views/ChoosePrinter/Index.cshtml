@@ -1,115 +1,10 @@
-﻿<!DOCTYPE html>
-<!-- Coding by CodingLab | www.codinglabweb.com -->
-<html lang="en">
+﻿@{
+    ViewData["Title"] = "CHOOSE PRINTER";
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!----======== CSS ======== -->
-    <link rel="stylesheet" href="/css/Sidebar.css">
-    <link rel="stylesheet" href="/css/ChoosePrinter.css">
-    <!--=========CDN=========-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
-
-    <!----===== Boxicons CSS ===== -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-
-    <title>Dashboard Sidebar Menu</title>
-</head>
+<!-- CHOOSE PRINTER -->
 
 <body>
-
-    <!--            SIDEBAR               -->
-
-    <nav class="sidebar close">
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    <img src="IMG/image.png" alt="" width="40" height="40">
-                </span>
-
-                <div class="text logo-text">
-                    <span class="name">SIU</span>
-                    <span class="profession">Printing service</span>
-                </div>
-            </div>
-
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
-
-        <div class="menu-bar">
-            <div class="menu">
-
-                <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-user icon icon1'></i>
-                            <span class="text nav-text">User Info</span>
-                        </a>
-                    </li>
-
-                    <ul class="menu-links">
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-printer icon icon1'></i>
-                                <span class="text nav-text">Printer</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-cloud-upload icon icon1'></i>
-                                <span class="text nav-text">Upload</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-file icon icon1'></i>
-                                <span class="text nav-text">Paper</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-link">
-                            <a href="#">
-                                <i class='bx bx-wallet icon icon1'></i>
-                                <span class="text nav-text">Wallets</span>
-                            </a>
-                        </li>
-
-                    </ul>
-            </div>
-
-            <div class="bottom-content">
-                <li class="">
-                    <a href="#">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='bx bx-moon icon moon'></i>
-                        <i class='bx bx-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Dark mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-
-            </div>
-        </div>
-
-    </nav>
-
-    <!--            CHOOSE PRINTER               -->
-
     <section class="home" style="overflow-y: auto;">
         <div class="text">Choose a printer</div>
         <div class="text" style="font-size: 15px;">
@@ -293,37 +188,4 @@
             </div>
         </div>
     </section>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!-- Thêm Bootstrap JS -->
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-
-    <!--             JAVA            -->
-
-    <script>
-        const body = document.querySelector('body'),
-            sidebar = body.querySelector('nav'),
-            toggle = body.querySelector(".toggle"),
-            modeSwitch = body.querySelector(".toggle-switch"),
-            modeText = body.querySelector(".mode-text");
-
-        toggle.addEventListener("click", () => {
-            sidebar.classList.toggle("close");
-        });
-
-        modeSwitch.addEventListener("click", () => {
-            body.classList.toggle("dark");
-
-            if (body.classList.contains("dark")) {
-                modeText.innerText = "Light mode";
-            } else {
-                modeText.innerText = "Dark mode";
-            }
-        });
-    </script>
-
 </body>
-
-</html>
