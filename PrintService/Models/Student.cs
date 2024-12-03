@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrintService.Models;
+namespace WebApplication1.Models;
 
 public partial class Student
 {
-    public string StudentId { get; set; } = null!;
+    public int StudentId { get; set; }
 
     public int? AccountId { get; set; }
 
@@ -18,6 +18,8 @@ public partial class Student
     public virtual Account? Account { get; set; }
 
     public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
+
+    public virtual ICollection<PaperDetailStudent> PaperDetailStudents { get; set; } = new List<PaperDetailStudent>();
 
     public virtual ICollection<PrintingLog> PrintingLogs { get; set; } = new List<PrintingLog>();
 

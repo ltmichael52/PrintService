@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrintService.Models;
+namespace WebApplication1.Models;
 
 public partial class Printer
 {
@@ -20,6 +20,8 @@ public partial class Printer
     public string? RoomNumber { get; set; }
 
     public bool? IsActive { get; set; }
+
+    public virtual ICollection<PaperDetailPrinter> PaperDetailPrinters { get; set; } = new List<PaperDetailPrinter>();
 
     public virtual ICollection<PrintingLog> PrintingLogs { get; set; } = new List<PrintingLog>();
 }

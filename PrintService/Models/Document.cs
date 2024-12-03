@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrintService.Models;
+namespace WebApplication1.Models;
 
 public partial class Document
 {
     public int DocumentId { get; set; }
 
-    public string? StudentId { get; set; }
+    public int? StudentId { get; set; }
 
     public string? FileName { get; set; }
 

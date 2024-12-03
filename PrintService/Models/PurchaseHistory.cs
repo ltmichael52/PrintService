@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrintService.Models;
+namespace WebApplication1.Models;
 
 public partial class PurchaseHistory
 {
     public int PurchaseId { get; set; }
 
-    public string? StudentId { get; set; }
+    public int? StudentId { get; set; }
 
     public int? PagesPurchased { get; set; }
 
