@@ -7,7 +7,7 @@ public partial class Document
 {
     public int DocumentId { get; set; }
 
-    public int? StudentId { get; set; }
+    public string? StudentId { get; set; }
 
     public string? FileName { get; set; }
 

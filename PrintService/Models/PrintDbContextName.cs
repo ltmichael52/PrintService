@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Models;
 
-public partial class PrintDbContext : DbContext
+public partial class PrintDbContextName : DbContext
 {
-    public PrintDbContext()
+    public PrintDbContextName()
     {
     }
 
-    public PrintDbContext(DbContextOptions<PrintDbContext> options)
+    public PrintDbContextName(DbContextOptions<PrintDbContextName> options)
         : base(options)
     {
     }
@@ -286,7 +286,9 @@ public partial class PrintDbContext : DbContext
             entity.Property(e => e.StudentId)
                 .HasMaxLength(255)
                 .HasColumnName("StudentID");
-            entity.Property(e => e.AccountBalance).HasDefaultValue(0);
+            entity.Property(e => e.AccountBalance)
+                .HasDefaultValue(0m)
+                .HasColumnType("money");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FullName).HasMaxLength(100);
 

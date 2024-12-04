@@ -5,9 +5,7 @@ namespace WebApplication1.Models;
 
 public partial class Account
 {
-    public int AccountId { get; set; }
-
-    public string UserName { get; set; } = null!;
+    public string AccountId { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 

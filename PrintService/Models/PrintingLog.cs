@@ -7,7 +7,7 @@ public partial class PrintingLog
 {
     public int LogId { get; set; }
 
-    public int? StudentId { get; set; }
+    public string? StudentId { get; set; }
 
     public int? PrinterId { get; set; }
 

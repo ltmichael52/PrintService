@@ -5,7 +5,7 @@ namespace WebApplication1.Models;
 
 public partial class PaperDetailStudent
 {
-    public int StudentId { get; set; }
+    public string StudentId { get; set; } = null!;
 
     public int PaperTypeId { get; set; }
 
