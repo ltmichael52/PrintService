@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using PrintService.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<PrintDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PrintService")));
+builder.Services.AddDistributedMemoryCache(); // Required for session storage.
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout.
+    options.Cookie.HttpOnly = true; // Make the cookie accessible only via HTTP.
+    options.Cookie.IsEssential = true; // Mark the session cookie as essential.
+});
 
 var app = builder.Build();
 
@@ -15,7 +27,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
