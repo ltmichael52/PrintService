@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    align-items: flex-start; /* Đảm bảo căn trên cùng hàng */
+    gap: 50px; /* Khoảng cách giữa hai hộp */
+}
+
+.settingbox {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6.4px;
+    padding: 12px;
+    margin-top: 32px; /* Có thể giữ nguyên hoặc bỏ */
+    flex: 3; /* Tùy chọn, để chiếm nhiều không gian hơn */
+}
+
+.infobox {
+    background-color: #f5f0f0;
+    border: 1px solid #ddd;
+    border-radius: 6.4px;
+    padding: 12px;
+    margin-top: 32px; /* Đảm bảo cùng căn chỉnh theo hàng */
+    flex: 1; /* Tùy chọn, để chiếm ít không gian hơn */
+}

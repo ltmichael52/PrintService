@@ -6,22 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="/css/site.css">
-
+    <link rel="stylesheet" href="/css/Sidebar.css">
+    <!--=========CDN=========-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
 
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
     <!--<title>Dashboard Sidebar Menu</title>-->
 </head>
+
 <body>
+
+    <header class="header-welcome">
+        Welcome to HCMSIU_SSPS
+    </header>
+
     <partial name="_Sidebar" />
-
-    <section class="home">
-        <div class="text">User Information</div>
-    </section>
-
+    
     @RenderBody()
+
+    <footer class="footer-hihi">
+        <div>Copyright © 2024 SIU The Sai Gon International University</div>
+        <div>All Rights Reserved</div>
+        <div>Address: 8C Tong Huu Dinh, Thao Dien Ward, Thu Duc City, Ho Chi Minh City</div>
+    </footer>
 
     <!--Toggle Sidebar and Ligt/Dark mode-->
     <script src="/js/layout/layout-toggle.js" asp-append-version="true"></script>
