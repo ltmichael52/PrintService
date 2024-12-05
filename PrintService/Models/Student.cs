@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApplication1.Models;
+namespace PrintService.Models;
 
 public partial class Student
 {
-    public int StudentId { get; set; }
-
-    public int? AccountId { get; set; }
+    public string StudentId { get; set; } = null!;
 
     public string? FullName { get; set; }
 
     public string? Email { get; set; }
 
-    public int? AccountBalance { get; set; }
-
-    public virtual Account? Account { get; set; }
+    public decimal? AccountBalance { get; set; }
 
     public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
 
@@ -24,4 +20,8 @@ public partial class Student
     public virtual ICollection<PrintingLog> PrintingLogs { get; set; } = new List<PrintingLog>();
 
     public virtual ICollection<PurchaseHistory> PurchaseHistories { get; set; } = new List<PurchaseHistory>();
+
+    public virtual ICollection<RechargeHistory> RechargeHistories { get; set; } = new List<RechargeHistory>();
+
+    public virtual Account StudentNavigation { get; set; } = null!;
 }

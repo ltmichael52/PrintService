@@ -1,4 +1,4 @@
-namespace WebApplication1.Models
+namespace PrintService.Models
 {
     public class ErrorViewModel
     {

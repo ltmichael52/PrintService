@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApplication1.Models;
+namespace PrintService.Models;
 
 public partial class PaperDetailStudent
 {
-    public int StudentId { get; set; }
+    public string StudentId { get; set; } = null!;
 
     public int PaperTypeId { get; set; }
 
