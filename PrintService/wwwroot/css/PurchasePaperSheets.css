@@ -1,0 +1,47 @@
+﻿.purchasebox {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6.4px;
+    padding: 12px;
+    margin-top: 32px;
+    margin-left: 85px;
+    margin-right: 80px;
+}
+
+.balancebox {
+    background-color: #f5f0f0;
+    border: 1px solid #ddd;
+    border-radius: 6.4px;
+    padding: 12px;
+    margin-left: 85px;
+    margin-right: 890px;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start; 
+    gap: 50px; 
+}
+.paper {
+    flex:1;
+    text-align:center;
+}
+.buybtn {
+    border: 1px solid #ddd;
+    border-radius: 6.4px;
+    padding: 12px;
+    margin-top: 30px;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-left: 1170px;
+    background-color: #22c55e;
+    color:white;
+    font-weight:bold;
+}
+
+.input[type="number"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 16px;
+}
