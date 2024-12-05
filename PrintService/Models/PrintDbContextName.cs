@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication1.Models;
+namespace PrintService.Models;
 
 public partial class PrintDbContextName : DbContext
 {

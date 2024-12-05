@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication1.Models;
+namespace PrintService.Models;
 
 public partial class PrintDbContext : DbContext
 {
@@ -286,7 +286,7 @@ public partial class PrintDbContext : DbContext
             entity.Property(e => e.StudentId)
                 .HasMaxLength(255)
                 .HasColumnName("StudentID");
-            entity.Property(e => e.AccountBalance).HasDefaultValue(0);
+            entity.Property(e => e.AccountBalance).HasDefaultValue(0m);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FullName).HasMaxLength(100);
 

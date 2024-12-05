@@ -1,0 +1,108 @@
+﻿@using PrintService.ViewModels
+@model BuyPaperViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Chỉ định layout sử dụng
+    ViewData["Title"] = "Buy Paper"; // Đặt tiêu đề trang
+}
+
+<!-- BUYING PAPER -->
+<section class="home">
+    <div class="text" style="font-weight: bold;">Paper Purchase</div>
+    <div class="text" style="font-size: 15px;">
+        <span>Home</span> &gt; <span>Paper Purchase</span>
+    </div>
+
+    <div class="buyingbox" style="padding-top: 30px;padding-bottom: 30px">
+        <text class="text" style="font-size: 23px;border-right: 2px solid #ccc;padding-left: 140px;">
+            A3 sheets available: @Model.A3Balance sheets
+        </text>
+        <text class="text" style="font-size: 23px;">
+            A4 sheets available: @Model.A4Balance sheets
+        </text>
+    </div>
+
+    <form method="post" asp-action="Index">
+        <input type="hidden" name="A3Quantity" id="A3Quantity" />
+        <input type="hidden" name="A4Quantity" id="A4Quantity" />
+        <input type="hidden" name="TotalAmount" id="TotalAmount" />
+
+        <div class="buyingbox-text">
+            <text class="text" style="font-size: 40px;">A3 paper quantity:</text>
+            <button type="button" onclick="increase('quantityA3')" class="text" style="border: none; background-color: white; outline: none; font-size: 40px; padding-left: 1px; padding-right: 20px;">+</button>
+            <input class="quantity-input" type="number" min="0" max="100" step="1" value="0" id="quantityA3" onchange="calculateTotal()" />
+            <button type="button" onclick="decrease('quantityA3')" class="text" style="margin-left: 30px; border: none; font-size: 40px; background-color: white; outline: none; padding-right: 1px; z-index: 2; position: absolute; padding-left: 15px;">-</button>
+            <text class="text" style="font-size: 30px;padding-left: 150px;">@Model.A3Price đ/ 1 sheet</text>
+        </div>
+
+        <div class="buyingbox-text">
+            <text class="text" style="font-size: 40px;">A4 paper quantity:</text>
+            <button type="button" onclick="increase('quantityA4')" class="text" style="border: none; background-color: white; outline: none; font-size: 40px; padding-left: 1px; padding-right: 20px;">+</button>
+            <input class="quantity-input" type="number" min="0" max="100" step="1" value="0" id="quantityA4" onchange="calculateTotal()" />
+            <button type="button" onclick="decrease('quantityA4')" class="text" style="margin-left: 30px; border: none; font-size: 40px; background-color: white; outline: none; padding-right: 1px; z-index: 2; position: absolute; padding-left: 15px;">-</button>
+            <text class="text" style="font-size: 30px;padding-left: 150px;">@Model.A4Price đ/ 1 sheet</text>
+        </div>
+
+        <div style="margin-top: 25px;">
+            <text class="text" style="margin-left: 300px;font-size: 35px;">Total:</text>
+            <text id="totalAmount" class="text" style="font-size: 35px; padding-left: 1px;">0 VND</text>
+        </div>
+
+        <button type="submit" class="purchasebutton">
+            <text class="text" style="font-size: 20px;color: white;">Confirm</text>
+        </button>
+    </form>
+
+</section>
+
+@section Scripts {
+    <script>
+        function increase(id) {
+            let input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrease(id) {
+            let input = document.getElementById(id);
+            if (input.value > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+            // Hàm tính tổng
+            function calculateTotal() {
+                // Lấy số lượng và giá cho A3
+                var quantityA3 = parseInt(document.getElementById('quantityA3').value) || 0;
+                var priceA3 = @Model.A3Price;
+
+                // Lấy số lượng và giá cho A4
+                var quantityA4 = parseInt(document.getElementById('quantityA4').value) || 0;
+                var priceA4 = @Model.A4Price;
+
+                // Tính tổng
+                var total = (quantityA3 * priceA3) + (quantityA4 * priceA4);
+
+                document.getElementById('totalAmount').textContent = total.toLocaleString() + " VND";  // Hiển thị tổng với định dạng VND
+
+                // Cập nhật giá trị vào các input ẩn
+                document.getElementById('A3Quantity').value = quantityA3;
+                document.getElementById('A4Quantity').value = quantityA4;
+                document.getElementById('TotalAmount').value = total;
+            }
+
+            // Hàm tăng số lượng
+            function increase(elementId) {
+                var quantity = document.getElementById(elementId);
+                quantity.value = parseInt(quantity.value) + 1;
+                calculateTotal();  // Cập nhật tổng sau khi thay đổi số lượng
+            }
+
+            // Hàm giảm số lượng
+            function decrease(elementId) {
+                var quantity = document.getElementById(elementId);
+                if (quantity.value > 0) {
+                    quantity.value = parseInt(quantity.value) - 1;
+                    calculateTotal();  // Cập nhật tổng sau khi thay đổi số lượng
+                }
+            }
+    </script>
+}
