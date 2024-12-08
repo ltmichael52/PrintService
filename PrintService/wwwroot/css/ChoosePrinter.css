@@ -1,41 +1,65 @@
-.card-img-top{
-    height: 170px;
-}
-.text-muted {
-    color: #919aa3 !important;
-}
-.card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
-    box-shadow: 0 1px 20px 0 rgba(69,90,100,0.08);
-    border: none;
-    margin-bottom: 30px;
-}
-.user-card-full {
-    overflow: hidden;
-}
-.user-card-full{
-    color: #919aa3;
-}
-.user-card-full-printer{
-    margin-left: 20px;
-    margin-top: 20px;
-    background-color: white;
-}
-.user-card-full .user-profile {
-    border-radius: 5px 0 0 5px;
-}
-.user-card-full .social-link li {
-    display: inline-block;
+.container {
+    display: flex;
+    align-items: flex-start; /* ??m b?o c?n trên cùng hàng */
+    gap: 50px; /* Kho?ng cách gi?a hai h?p */
 }
 
-.user-card-full .social-link li a {
-    font-size: 20px;
-    margin: 0 10px 0 0;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+.searchbox {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 32px; /* Có th? gi? nguyên ho?c b? */
+    flex: 3; /* Tùy ch?n, ?? chi?m nhi?u không gian h?n */
 }
-.printer-link {
-    text-decoration: none;
-    color: inherit;
+
+.filterbutton {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 32px; /* ??m b?o cùng c?n ch?nh theo hàng */
+    flex: 1; /* Tùy ch?n, ?? chi?m ít không gian h?n */
+}
+
+.printercontainer {
+    margin-left: 2%;
+}
+
+.printerbox {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding-right: 40px;
+    padding-left: 20px;
+    margin-top: 32px;
+    flex: 2;
+    margin-right: 50px;
+}
+
+.printerimg {
+    height: 60%;
+    width: 250px;
+    padding-left: 10%;
+    padding-right: 3%;
+    margin-left: 5%;
+}
+
+.modeltext {
+    font-size: 13px;
+    text-align: center;
+}
+
+.rightinfo {
+    margin-top: 10px;
+    flex: 1;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.leftinfo {
+    margin-top: 10px;
+    flex: 1;
+    font-size: 10px;
+    font-weight: bold;
 }
