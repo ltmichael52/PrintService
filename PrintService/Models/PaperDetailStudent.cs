@@ -9,7 +9,7 @@ public partial class PaperDetailStudent
 
     public int PaperTypeId { get; set; }
 
-    public string? Amount { get; set; }
+    public int? Amount { get; set; }
 
     public virtual PaperType PaperType { get; set; } = null!;
 

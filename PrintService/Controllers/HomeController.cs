@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using PrintService.Models;
 using System.Diagnostics;
+using PrintService.Models;
 
 namespace PrintService.Controllers
 {
