@@ -3,9 +3,9 @@
 </head>
 <body>
     <section class="home" style="overflow-y: auto;">
-        <div class="text" style="font-size: 15px;">
+    <div class="text" style="font-size: 15px;">
             <span>Home</span> &gt; <span>Purchase Paper Sheets</span>
-        </div>
+    </div>
         <div class="text" style="font-weight: bold; text-align:center;color:black;">Purchase Paper Sheets</div>
         <div class="balancebox">
             <div class="text" style="margin-bottom:10px;margin-top:10px;margin-left:37px;font-size:17px;padding-left:0px;padding:0px">Account balance: @Model.AccountBalance</div>
@@ -21,7 +21,7 @@
                     <img class="paperimg" src="~/img/A4.png" />
                     <div style="margin-top:10px;">
                         <span>@Model.A4Price Đ/ 1 sheet</span>
-                    </div>
+    </div>
                 </div>
                 <div class="paper">
                     <img class="paperimg" src="~/img/A3.png" />
@@ -31,61 +31,77 @@
                 </div>
             </div>
 
-            <form method="post" asp-action="Index">
-                <input type="hidden" name="A3Quantity" id="A3Quantity" />
-                <input type="hidden" name="A4Quantity" id="A4Quantity" />
-                <input type="hidden" name="TotalAmount" id="TotalAmount" />
+    <form method="post" asp-action="Index">
+        <input type="hidden" name="A3Quantity" id="A3Quantity" />
+        <input type="hidden" name="A4Quantity" id="A4Quantity" />
+        <input type="hidden" name="TotalAmount" id="TotalAmount" />
 
                 <div style="margin-top: 30px;">
                     <span class="text" style="font-size: 20px;padding-right:10px">A4 Paper sheets:</span>
                     <input type="number" id="quantityA4" value="1" min="1" style="width: 60px; text-align: center; margin: 0 10px; font-size: 20px;" onchange="calculateTotal()">
-                </div>
+        </div>
                 <div style="margin-top: 10px;">
                     <span class="text" style="font-size: 20px;padding-right:10px">A3 Paper sheets:</span>
                     <input type="number" id="quantityA3" value="1" min="1" style="width: 60px; text-align: center; margin: 0 10px; font-size: 20px;" onchange="calculateTotal()">
-                </div>
+        </div>
 
                 <div style="margin-top: 10px; margin-bottom:10px;">
                     <span class="text" style="font-size:25px;margin-left:660px;font-weight:bold">Total bill : <span id="totalAmount">3.000 VNĐ</span></span>
-                </div>
+        </div>
 
                 <button type="submit" class="buybtn">
                     <span class="text" style="font-size: 20px;color: white;">Buy</span>
-                </button>
-            </form>
+        </button>
+    </form>
         </div>
-    </section>
+</section>
 
+@section Scripts {
     <script>
-        function calculateTotal() {
-            // Get quantities and prices
-            var quantityA3 = parseInt(document.getElementById('quantityA3').value) || 0;
-            var priceA3 = @Model.A3Price;
-            var quantityA4 = parseInt(document.getElementById('quantityA4').value) || 0;
-            var priceA4 = @Model.A4Price;
-
-            // Calculate total
-            var total = (quantityA3 * priceA3) + (quantityA4 * priceA4);
-            document.getElementById('totalAmount').textContent = total.toLocaleString() + " VND";
-
-            // Update hidden inputs
-            document.getElementById('A3Quantity').value = quantityA3;
-            document.getElementById('A4Quantity').value = quantityA4;
-            document.getElementById('TotalAmount').value = total;
-        }
-
         function increase(id) {
             let input = document.getElementById(id);
             input.value = parseInt(input.value) + 1;
-            calculateTotal();
         }
 
         function decrease(id) {
             let input = document.getElementById(id);
             if (input.value > 0) {
                 input.value = parseInt(input.value) - 1;
-                calculateTotal();
             }
         }
+
+            // Hàm tính tổng
+            function calculateTotal() {
+            // Get quantities and prices
+                var quantityA3 = parseInt(document.getElementById('quantityA3').value) || 0;
+                var priceA3 = @Model.A3Price;
+
+                // Lấy số lượng và giá cho A4
+                var quantityA4 = parseInt(document.getElementById('quantityA4').value) || 0;
+                var priceA4 = @Model.A4Price;
+
+            // Calculate total
+                var total = (quantityA3 * priceA3) + (quantityA4 * priceA4);
+            document.getElementById('totalAmount').textContent = total.toLocaleString() + " VND";
+
+            // Update hidden inputs
+                document.getElementById('A3Quantity').value = quantityA3;
+                document.getElementById('A4Quantity').value = quantityA4;
+                document.getElementById('TotalAmount').value = total;
+            }
+
+        function increase(id) {
+            let input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
+            calculateTotal();
+            }
+
+        function decrease(id) {
+            let input = document.getElementById(id);
+            if (input.value > 0) {
+                input.value = parseInt(input.value) - 1;
+                calculateTotal();
+                }
+            }
     </script>
 </body>
