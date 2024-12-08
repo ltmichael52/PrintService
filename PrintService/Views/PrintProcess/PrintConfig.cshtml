@@ -1,58 +1,12 @@
 ﻿@model PrintService.ViewModels.PrintConfig
+@* <form asp-action="PrintConfig" asp-controller="PrintProcess" method="post" enctype="multipart/form-data">
 
-@{
-    ViewData["Title"] = "Print Config";
-    Layout = null;
-}
-
-
-<h1>Print Config</h1>
-
-<form asp-action="PrintConfig" asp-controller="PrintProcess" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="PrinterModel">Printer Model</label>
-        <input type="text" id="PrinterModel" name="PrinterModel" class="form-control" value="@Model.PrinterModel" readonly />
-    </div>
-
-    <div class="form-group">
-        <label for="A3Amount">A3 Amount</label>
-        <input type="number" id="A3Amount" name="A3Amount" class="form-control" value="@Model.A3Amount" readonly />
-    </div>
-
-    <div class="form-group">
-        <label for="A4Amount">A4 Amount</label>
-        <input type="number" id="A4Amount" name="A4Amount" class="form-control" value="@Model.A4Amount" readonly />
-    </div>
-
-    <div class="form-group">
-        <label for="CampusName">Campus Name</label>
-        <input type="text" id="CampusName" name="CampusName" class="form-control" value="@Model.CampusName" readonly />
-    </div>
-
-    <div class="form-group">
-        <label for="BuildingName">Building Name</label>
-        <input type="text" id="BuildingName" name="BuildingName" class="form-control" value="@Model.BuildingName" readonly />
-    </div>
-
-    <div class="form-group">
-        <label for="Room">Room</label>
-        <input type="text" id="Room" name="Room" class="form-control" value="@Model.Room" readonly />
-    </div>
-
-    <div class="form-group">
-        <label for="PrinterID">Printer ID</label>
-        <input type="number" id="PrinterID" name="PrinterID" class="form-control" value="@Model.PrinterID" readonly />
-    </div>
 
     <div class="form-group">
         <label for="PaperTypeID">Paper Type</label>
         <input type="number" id="PaperTypeID" name="PaperTypeID" class="form-control" value="@Model.PaperTypeID" />
     </div>
 
-    <div class="form-group">
-        <label for="file">File</label>
-        <input type="file" id="file" name="File" class="form-control" />
-    </div>
 
     <div class="form-group">
         <label for="Colored">Colored</label>
@@ -70,10 +24,100 @@
     <div class="form-group">
         <label for="IsDoubledSide">Double-Sided</label>
         <select id="IsDoubledSide" name="IsDoubledSide" class="form-control">
-            <option value="true" >Yes</option>
+            <option value="true">Yes</option>
             <option value="false">No</option>
         </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+ *@
+
+<section class="home" style="overflow-y: auto;">
+
+    <div class="text" style="font-size: 15px;">
+        <span>Home</span> &gt; <span>Printer Setting</span>
+    </div>
+    <div class="text" style="font-weight: bold; text-align:center;color:black;">Printer Setting</div>
+    <form asp-action="PrintConfig" asp-controller="PrintProcess" method="post" enctype="multipart/form-data">
+
+        <div class="container">
+            <div class="settingbox">
+                <div style="margin-bottom: 25px; margin-top: 25px">
+                    <text class="text" style="font-size: 22px;">Upload your file: </text>
+                    <input type="file" id="fileInput" name="File">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">Choose paper size: </span>
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">A3</span><input type="checkbox" name="Colored" id="a3Checkbox" value="A3" onclick="toggleCheckbox('a3Checkbox', 'a4Checkbox')">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">A4</span><input type="checkbox" name="Colored" id="a4Checkbox" value="A4" onclick="toggleCheckbox('a4Checkbox', 'a3Checkbox')">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">One-sided: </span><input type="checkbox" id="oneSidedCheckbox" onclick="toggleCheckbox('oneSidedCheckbox', 'doubleSidedCheckbox')">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">Double-sided: </span><input type="checkbox" id="doubleSidedCheckbox" onclick="toggleCheckbox('doubleSidedCheckbox', 'oneSidedCheckbox')">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">Enter number of copies: </span>
+                    <input type="number" name="NumberOfCopies" value="@Model.NumberOfCopies">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">Color printed: </span>
+                    <input type="checkbox" value="@Model.Colored">
+                </div>
+            </div>
+
+
+            <input type="number" id="PrinterID" name="PrinterID" class="form-control" value="@Model.PrinterID" hidden />
+            <input type="text" id="PrinterModel" name="PrinterModel" class="form-control" value="@Model.PrinterModel" hidden />
+            <input type="number" id="A4Amount" name="A4Amount" class="form-control" value="@Model.A4Amount" hidden />
+            <input type="number" id="A3Amount" name="A3Amount" class="form-control" value="@Model.A3Amount" hidden />
+            <input type="text" id="CampusName" name="CampusName" class="form-control" value="@Model.CampusName" hidden />
+            <input type="text" id="BuildingName" name="BuildingName" class="form-control" value="@Model.BuildingName" hidden />
+            <input type="text" id="Room" name="Room" class="form-control" value="@Model.Room" hidden />
+
+            <div class="infobox">
+                <div>
+                    <span class="text" style="font-size: 20px;padding-left:60px;padding-right:1px;">Printer's Info</span>
+                </div>
+                <div style="margin-bottom: 15px; margin-top: 10px">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">Model: @Model.PrinterModel</span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">A3 paper sheets: @Model.A3Amount</span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">A4 paper sheets: @Model.A4Amount</span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">Campus name: @Model.CampusName</span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">Building: @Model.BuildingName</span>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">Room: @Model.Room</span>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <span class="text" style="font-size: 15px;padding-left:5px;padding-right:1px;">Status: active</span>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: right;">
+            <button type="submit" class="btn-success btn-lg mt-4 mr-4" style="padding: 10px 20px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+                Confirm
+            </button>
+        </div>
+
+    </form>
+</section>
+
+<script>
+    function toggleCheckbox(clickedId, otherId) {
+        const clicked = document.getElementById(clickedId);
+        const other = document.getElementById(otherId);
+        if (clicked.checked) {
+            console.log("test")
+            other.checked = false; // Deselect the other checkbox
+        }
+    }
+</script>
