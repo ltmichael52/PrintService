@@ -1,0 +1,48 @@
+﻿@using PrintService.ViewModels;
+@model List<ShowPrinter>
+@{
+    ViewData["Title"] = "CHOOSE PRINTER";
+}
+
+<!-- CHOOSE PRINTER -->
+
+    <section class="home" style="overflow-y: auto;">
+        <div class="text">Choose a printer</div>
+        <div class="text" style="font-size: 15px;">
+            <span>Home</span> &gt; <span>Choose a printer</span>
+        </div>
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-12 col-md-12" style="margin-left: 45%;">
+                <div class="card user-card-full" style="box-shadow: 0 0 0 0; background-color: #e4e9f7; border-color: #e4e9f7;">
+                    <div class="row">
+                        @foreach(ShowPrinter printer in Model)
+                        {
+                            <div class="col-xl-3 col-md-3 user-card-full-printer">
+                                <a asp-controller="PrintProcess" asp-action="PrintConfig" asp-route-printerId="@printer.PrinterId" class="printer-link">
+                                    <img src="IMG/printer.png" class="card-img-top" alt="Printer 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Printer 1</h5>
+                                        <div class="row">
+                                            <p class="card-text" style="margin-left: 15px;">Status</p>
+                                            <img src="IMG/switch-on.png" style="height: 25px;width: 30px;margin-left: 10px;">
+                                            <!-- Added A3 and A4 paper images with sheet counts -->
+                                            <div style="margin-left: 4%; display: flex; align-items: center;">
+                                                <div style="display: flex; align-items: center; margin-right: 10px;">
+                                                    <img src="IMG/A3-Paper.png" alt="A3 Paper" style="height: 25px; width: 25px;">
+                                                    <span style="margin-left: 5px;">@printer.A3Amount</span> <!-- Adjust the number of sheets as needed -->
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <img src="IMG/A4-Paper.png" alt="A4 Paper" style="height: 25px; width: 25px;">
+                                                    <span style="margin-left: 5px;">@printer.A4Amount</span> <!-- Adjust the number of sheets as needed -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -3,7 +3,7 @@
     <header>
         <div class="image-text">
             <span class="image">
-                <img src="IMG/image.png" alt="" width="40" height="40">
+                <a asp-controller="Home" asp-action="Index"><img src="IMG/image.png" alt="" width="40" height="40"></a>
             </span>
 
             <div class="text logo-text">
@@ -17,14 +17,14 @@
         <div class="menu">
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a href="#">
+                    <a asp-controller="UserInfo" asp-action="Index">
                         <i class='bx bx-user icon icon1'></i>
                         <span class="text nav-text">User Info</span>
                     </a>
                 </li>
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="#">
+                        <a asp-controller="Printer" asp-action="Index">
                             <i class='bx bx-printer icon icon1'></i>
                             <span class="text nav-text">Printer</span>
                         </a>
