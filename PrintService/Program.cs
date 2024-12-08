@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PrintService.Models;
+using PrintService.Payments;
+using PrintService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PrintDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PrintService")));
+
 builder.Services.AddDistributedMemoryCache(); // Required for session storage.
 builder.Services.AddSession(options =>
 {
@@ -14,6 +17,16 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // Make the cookie accessible only via HTTP.
     options.Cookie.IsEssential = true; // Mark the session cookie as essential.
 });
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddTransient<PayPalService>();
+builder.Services.AddTransient<VnPayService>();
+builder.Services.AddTransient<MomoService>();
+builder.Services.AddScoped<PaymentContext>();
 
 var app = builder.Build();
 
