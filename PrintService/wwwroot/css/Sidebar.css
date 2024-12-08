@@ -20,7 +20,7 @@
     font-size: 15px; /* Kích thước chữ */
     padding: 20px; /* Khoảng cách trên và dưới */
     background-color: #2c7adf; /* Màu nền nhạt (tùy chọn) */
-    color: #333; /* Màu chữ */
+    color: #FFFFFF; /* Màu chữ */
     border-top: 1px solid #ddd; /* Đường viền phía trên */
     margin-left: 132px;
 }
