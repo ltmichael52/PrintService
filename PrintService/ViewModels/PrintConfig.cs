@@ -18,7 +18,6 @@ namespace PrintService.ViewModels
         [Required(ErrorMessage = "PaperTypeID is required.")]
         public int PaperTypeID { get; set; }
 
-        [Required(ErrorMessage = "Colored field is required.")]
         public bool Colored { get; set; }
 
         [Required(ErrorMessage = "Number of Copies is required.")]

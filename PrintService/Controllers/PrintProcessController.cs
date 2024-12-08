@@ -73,6 +73,10 @@ namespace PrintService.Controllers
             return View();
         }
 
+        public IActionResult PrintConfigSuccess(int printinLogId)
+        {
+            return View(printinLogId);
+        }
 
         public int GetAmountPaperPrinter(Printer prnt, string typePaper)
         {
@@ -82,7 +86,7 @@ namespace PrintService.Controllers
             return prntDetail.Amount;
         }
 
-
+        
         public int SaveFileToServer(IFormFile file)
         {
             string remoteHost = "35.187.250.71";
