@@ -13,6 +13,8 @@ public partial class Document
 
     public string? FileType { get; set; }
 
+    public string? FilePath { get; set; }
+
     public DateTime? UploadedAt { get; set; }
 
     public virtual ICollection<PrintingLog> PrintingLogs { get; set; } = new List<PrintingLog>();

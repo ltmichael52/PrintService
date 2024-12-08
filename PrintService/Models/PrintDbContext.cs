@@ -66,6 +66,7 @@ public partial class PrintDbContext : DbContext
             entity.Property(e => e.DocumentId).HasColumnName("DocumentID");
             entity.Property(e => e.FileName).HasMaxLength(255);
             entity.Property(e => e.FileType).HasMaxLength(10);
+            entity.Property(e => e.FilePath).HasMaxLength(255);
             entity.Property(e => e.StudentId)
                 .HasMaxLength(255)
                 .HasColumnName("StudentID");
@@ -118,9 +119,6 @@ public partial class PrintDbContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("StudentID");
             entity.Property(e => e.PaperTypeId).HasColumnName("PaperTypeID");
-            entity.Property(e => e.Amount)
-                .HasMaxLength(10)
-                .IsFixedLength();
 
             entity.HasOne(d => d.PaperType).WithMany(p => p.PaperDetailStudents)
                 .HasForeignKey(d => d.PaperTypeId)
