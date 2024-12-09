@@ -45,14 +45,20 @@ namespace PrintService.Controllers
             if (!ModelState.IsValid)
             {
                 // Return the validation errors
-                return BadRequest(ModelState);
+                return View(prntConfig);
+            }
+
+            if (!CheckPaperAmount(prntConfig))
+            {
+                ViewBag.InvalidPaper = true;
+                return View(prntConfig);
             }
 
             int documentId = SaveFileToServer(prntConfig.File);
 
             PrintingLog printingLog = new PrintingLog
             {
-                StudentId = "S001",
+                StudentId = HttpContext.Session.GetString("AccountID"),
                 PrinterId = prntConfig.PrinterID,
                 DocumentId = documentId,
                 PaperTypeId = prntConfig.PaperTypeID,
@@ -156,7 +162,7 @@ unjqyDvOeDSWWFAAAAE2x0bWljaGFlbEBMZU1pY2hhZWwBAgMEBQYH
 
             Document saveDoc = new Document
             {
-                StudentId = "S001",
+                StudentId = HttpContext.Session.GetString("AccountID"),
                 FileName = fileName,
                 FileType = System.IO.Path.GetExtension(file.FileName).TrimStart('.'),
                 FilePath = filePath,
@@ -182,7 +188,7 @@ unjqyDvOeDSWWFAAAAE2x0bWljaGFlbEBMZU1pY2hhZWwBAgMEBQYH
             db.SaveChanges();
 
             Student student = db.Students.Include(x=>x.PaperDetailStudents)
-                .FirstOrDefault(x => x.StudentId == "S001") ?? new Student();
+                .FirstOrDefault(x => x.StudentId == HttpContext.Session.GetString("AccountID")) ?? new Student();
 
            PaperDetailStudent ppStudent = student.PaperDetailStudents.FirstOrDefault(pd => pd.PaperTypeId == prntConfig.PaperTypeID) ?? new PaperDetailStudent();
             ppStudent.Amount -= prntConfig.NumberOfCopies;
@@ -190,5 +196,12 @@ unjqyDvOeDSWWFAAAAE2x0bWljaGFlbEBMZU1pY2hhZWwBAgMEBQYH
             db.SaveChanges();
         }
         
+        public bool CheckPaperAmount(PrintConfig prntConfig)
+        {
+            string studentId = HttpContext.Session.GetString("AccountID");
+            int amountStudentPaper = db.PaperDetailStudents.FirstOrDefault(x => x.StudentId == studentId && x.PaperTypeId == prntConfig.PaperTypeID).Amount ?? 0;
+
+            return amountStudentPaper >= prntConfig.NumberOfCopies ;
+        }
     }
 }

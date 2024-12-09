@@ -25,7 +25,7 @@ namespace PrintService.ViewModels
         public int NumberOfCopies { get; set; }
 
         [Required(ErrorMessage = "IsDoubledSide field is required.")]
-        public bool IsDoubledSide { get; set; }
+        public bool? IsDoubledSide { get; set; }
 
 
     }

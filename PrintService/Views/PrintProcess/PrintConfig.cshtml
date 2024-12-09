@@ -5,6 +5,33 @@
     <div class="text" style="font-size: 15px;">
         <span>Home</span> &gt; <span>Printer Setting</span>
     </div>
+    @if(ViewBag.InvalidPaper = true)
+    {
+        <script>
+            document.getElementById("alertBox").style.display = "block";
+         </script>
+        <div id="alertBox" class="alert" role="alert" style="
+    width: 50%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    ">
+            <h4 class="alert-heading" style="color: red; margin: 0; font-weight: bold;">Insufficient Paper Alert</h4>
+            <p style="margin: 10px 0;">Your account doesn't have enough paper to complete the printing.</p>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                <a href="#" id="closeButton" style="background-color: #ffffff; color: black; text-decoration: none; padding: 5px 15px; border: 1px solid black; border-radius: 3px;">Close</a>
+                <a asp-controller="Purchase" asp-action="Index" style="background-color: #007bff; color: black; text-decoration: none; padding: 5px 15px; border: 1px solid #007bff; border-radius: 3px;">Buy More</a>
+            </div>
+        </div>
+
+    }
     <div class="text" style="font-weight: bold; text-align:center;color:black;">Printer Setting</div>
     <form asp-action="PrintConfig" asp-controller="PrintProcess" method="post" enctype="multipart/form-data">
 
@@ -16,12 +43,28 @@
                 </div>
                 <div style="margin-bottom: 25px;">
                     <span class="text" style="font-size: 22px; padding-right: 25px;">Choose paper size: </span>
-                    <span class="text" style="font-size: 22px; padding-right: 25px;">A3</span><input type="checkbox" name="PaperTypeID" id="a3Checkbox" value="1" onclick="toggleCheckbox('a3Checkbox', 'a4Checkbox')">
-                    <span class="text" style="font-size: 22px; padding-right: 25px;">A4</span><input type="checkbox" name="PaperTypeID" id="a4Checkbox" value="2" onclick="toggleCheckbox('a4Checkbox', 'a3Checkbox')">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">A3</span><input type="checkbox"
+                                                                                                     name="PaperTypeID"
+                                                                                                     id="a3Checkbox"
+                                                                                                     value="1" @(Model.PaperTypeID == 1 ? "checked" : "")
+                                                                                                     onclick="toggleCheckbox('a3Checkbox', 'a4Checkbox')">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">A4</span> <input type="checkbox"
+                                                                                                      name="PaperTypeID"
+                                                                                                      id="a4Checkbox"
+                                                                                                      value="2"@(Model.PaperTypeID == 2 ? "checked" : "")
+                                                                                                      onclick="toggleCheckbox('a4Checkbox', 'a3Checkbox')">
                 </div>
                 <div style="margin-bottom: 25px;">
-                    <span class="text" style="font-size: 22px; padding-right: 25px;">One-sided: </span><input type="checkbox" id="oneSidedCheckbox" name="IsDoubledSide" value="false" onclick="toggleCheckbox('oneSidedCheckbox', 'doubleSidedCheckbox')">
-                    <span class="text" style="font-size: 22px; padding-right: 25px;">Double-sided: </span><input type="checkbox" id="doubleSidedCheckbox" name="IsDoubledSide" value="true" onclick="toggleCheckbox('doubleSidedCheckbox', 'oneSidedCheckbox')">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">One-sided: </span><input type="checkbox"
+                                                                                                              id="oneSidedCheckbox"
+                                                                                                              name="IsDoubledSide"
+                                                                                                              value="false" @(Model.IsDoubledSide == false ? "checked" : "")
+                                                                                                              onclick="toggleCheckbox('oneSidedCheckbox', 'doubleSidedCheckbox')">
+                    <span class="text" style="font-size: 22px; padding-right: 25px;">Double-sided: </span><input type="checkbox"
+                                                                                                                 id="doubleSidedCheckbox"
+                                                                                                                 name="IsDoubledSide"
+                                                                                                                 value="true" @(Model.IsDoubledSide == true ? "checked" : "")
+                                                                                                                 onclick="toggleCheckbox('doubleSidedCheckbox', 'oneSidedCheckbox')">
                 </div>
                 <div style="margin-bottom: 25px;">
                     <span class="text" style="font-size: 22px; padding-right: 25px;">Enter number of copies: </span>
@@ -29,7 +72,7 @@
                 </div>
                 <div style="margin-bottom: 25px;">
                     <span class="text" style="font-size: 22px; padding-right: 25px;">Color printed: </span>
-                    <input type="checkbox" name="Colored" value="true">
+                    <input type="checkbox" name="Colored" value="true" @(Model.Colored == true ? "checked" : "")>
                 </div>
             </div>
 
@@ -87,4 +130,9 @@
             other.checked = false; // Deselect the other checkbox
         }
     }
+
+    document.getElementById("closeButton").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default link behavior
+        document.getElementById("alertBox").style.display = "none"; // Hide the alert
+    });
 </script>
