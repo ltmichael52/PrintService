@@ -1,0 +1,30 @@
+﻿.container {
+    align-items: flex-start; 
+    gap: 50px; 
+}
+
+.textbox {
+    background-color: #E4E9F7;
+    margin-top: 20%; 
+    flex: 1;
+    text-align:center;
+    width:600px;
+}
+
+.imgbox {
+    background-color: #f5f0f0;
+    margin-top: 32px; 
+    flex: 1; 
+}
+
+.printbtn {
+    padding: 10px;
+    padding-left: 33px;
+    padding-right: 30px;
+    background-color: #5ac8fa;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    color:white;
+    font-size:30px;
+    margin-right:2%;
+}
