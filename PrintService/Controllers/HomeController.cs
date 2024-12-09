@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using PrintService.Models;
+using PrintService.Models.Authentication;
 
 namespace PrintService.Controllers
 {
+    [AuthenticationM_S]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
