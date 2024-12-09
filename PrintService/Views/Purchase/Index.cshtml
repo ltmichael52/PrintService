@@ -21,7 +21,7 @@
                     <img class="paperimg" src="~/img/A4.png" />
                     <div style="margin-top:10px;">
                         <span>@String.Format("{0:N0}", Model.A4Price) Đ/ 1 sheet</span>
-    </div>
+        </div>
                 </div>
                 <div class="paper">
                     <img class="paperimg" src="~/img/A3.png" />
@@ -31,28 +31,27 @@
                 </div>
             </div>
 
-    <form method="post" asp-action="Index">
-        <input type="hidden" name="A3Quantity" id="A3Quantity" />
-        <input type="hidden" name="A4Quantity" id="A4Quantity" />
-        <input type="hidden" name="TotalAmount" id="TotalAmount" />
+        <form method="post" asp-action="Index">
+            <input type="hidden" name="A3Quantity" id="A3Quantity" />
+            <input type="hidden" name="A4Quantity" id="A4Quantity" />
+            <input type="hidden" name="TotalAmount" id="TotalAmount" />
 
-                <div style="margin-top: 30px;">
-                    <span class="text" style="font-size: 20px;padding-right:10px">A4 Paper sheets:</span>
-                    <input type="number" id="quantityA4" value="0" min="0" style="width: 60px; text-align: center; margin: 0 10px; font-size: 20px;" onchange="calculateTotal()">
-        </div>
-                <div style="margin-top: 10px;">
-                    <span class="text" style="font-size: 20px;padding-right:10px">A3 Paper sheets:</span>
-                    <input type="number" id="quantityA3" value="0" min="0" style="width: 60px; text-align: center; margin: 0 10px; font-size: 20px;" onchange="calculateTotal()">
-        </div>
+                    <div style="margin-top: 30px;">
+                        <span class="text" style="font-size: 20px;padding-right:10px">A4 Paper sheets:</span>
+                        <input type="number" id="quantityA4" value="0" min="0" style="width: 60px; text-align: center; margin: 0 10px; font-size: 20px;" onchange="calculateTotal()">
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="text" style="font-size: 20px;padding-right:10px">A3 Paper sheets:</span>
+                        <input type="number" id="quantityA3" value="0" min="0" style="width: 60px; text-align: center; margin: 0 10px; font-size: 20px;" onchange="calculateTotal()">
+                    </div>
 
-                <div style="margin-top: 10px; margin-bottom:10px;">
-                    <span class="text" style="font-size:25px;margin-left:660px;font-weight:bold">Total bill : <span id="totalAmount">VNĐ</span></span>
-        </div>
-
-                <button type="submit" class="buybtn">
-                    <span class="text" style="font-size: 20px;color: white;">Buy</span>
-        </button>
-    </form>
+                    <div style="margin-top: 20px; margin-bottom:10px;">
+                        <span class="text" style="font-size:25px;margin-left:0px;font-weight:bold">Total bill : <span id="totalAmount">VNĐ</span></span>                  
+                    </div>
+                    <button type="submit" class="buybtn">
+                        <span class="text" style="font-size: 20px;color: white;">Buy</span>
+                    </button>
+        </form>
         </div>
         @if(ViewBag.InvalidPaper == true)
  {
