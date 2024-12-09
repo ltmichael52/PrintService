@@ -67,7 +67,6 @@ namespace PrintService.Controllers
                 Copies = prntConfig.NumberOfCopies,
                 Status = 0,
                 StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddMinutes(1)
             };
 
             db.PrintingLogs.Add(printingLog);
@@ -76,7 +75,7 @@ namespace PrintService.Controllers
             MinusPaper(prntConfig);
 
 
-            return View();
+            return RedirectToAction("PrintConfigSuccess", new { printinLogId = printingLog.LogId });
         }
 
         public IActionResult PrintConfigSuccess(int printinLogId)
@@ -195,7 +194,8 @@ unjqyDvOeDSWWFAAAAE2x0bWljaGFlbEBMZU1pY2hhZWwBAgMEBQYH
 
             db.SaveChanges();
         }
-        
+
+        [HttpPut]
         public bool CheckPaperAmount(PrintConfig prntConfig)
         {
             string studentId = HttpContext.Session.GetString("AccountID");

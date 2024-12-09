@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using PrintService.Models;
 using PrintService.ViewModels;
 
@@ -29,9 +30,26 @@ namespace PrintService.Controllers
                                                 AmountInQueue = db.PrintingLogs.Where(y=>y.PrinterId == x.PrinterId && y.Status==0).Count(),
                                                 A3Amount = x.PaperDetailPrinters.FirstOrDefault(a=>a.PaperTypeId == A3Id).Amount,
                                                 A4Amount = x.PaperDetailPrinters.FirstOrDefault(a => a.PaperTypeId == A4Id).Amount,
-                                            }).ToList();
+                                            }).OrderByDescending(x => x.IsActive).ToList();
 
             return View(printerList);
+        }
+
+        public void ChangePrintingStatus()
+        {
+
+            List<Printer> printerList = db.Printers.Include(x=>x.PrintingLogs).Where(x=>x.IsActive == true).ToList();
+
+            foreach (Printer printer in printerList)
+            {
+                PrintingLog prntSmallestLog = printer.PrintingLogs.Where(x=>x.Status==0).OrderBy(log=>log.StartTime).FirstOrDefault();
+                if (prntSmallestLog != null)
+                {
+                    prntSmallestLog.Status = 1;
+                    prntSmallestLog.EndTime = DateTime.Now;
+                }
+            }
+            db.SaveChanges();
         }
     }
 }

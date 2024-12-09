@@ -5,11 +5,11 @@
     <div class="text" style="font-size: 15px;">
         <span>Home</span> &gt; <span>Printer Setting</span>
     </div>
-    @if(ViewBag.InvalidPaper = true)
+    @if(ViewBag.InvalidPaper == true)
     {
-        <script>
-            document.getElementById("alertBox").style.display = "block";
-         </script>
+            <script>
+                document.getElementById("alertBox").style.display = "block";
+             </script>
         <div id="alertBox" class="alert" role="alert" style="
     width: 50%;
     background-color: #ffffff;
