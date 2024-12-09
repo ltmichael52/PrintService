@@ -5,15 +5,19 @@ using PrintService.ViewModels;
 
 namespace PrintService.Controllers
 {
-    
     public class PurchaseController : Controller
     {
         private readonly PrintDbContext _db = new PrintDbContext();
 
         public IActionResult Index()
         {
-            // Ví dụ: Lấy dữ liệu sinh viên hiện tại
-            string studentId = "S001"; // Thay bằng ID sinh viên thực tế (đăng nhập)
+            // Lấy studentId từ session
+            string studentId = HttpContext.Session.GetString("AccountID");
+            if (string.IsNullOrEmpty(studentId))
+            {
+                return RedirectToAction("Login", "Account"); // Chuyển hướng về trang đăng nhập nếu session không tồn tại
+            }
+
             var student = _db.Students.SingleOrDefault(s => s.StudentId == studentId);
 
             if (student == null)
@@ -38,127 +42,122 @@ namespace PrintService.Controllers
                 A4Price = paperPrices.FirstOrDefault(p => p.PaperTypeId == 2)?.Price ?? 0,
             };
 
-
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Index(BuyPaperViewModel model)
         {
-            // Lấy thông tin từ ViewModel (số lượng giấy và tổng tiền)
-            int quantityA3 = model.A3Quantity;
-            int quantityA4 = model.A4Quantity;
-            decimal totalAmount = model.TotalAmount;
+            // Lấy studentId từ session
+            string studentId = HttpContext.Session.GetString("AccountID");
+            if (string.IsNullOrEmpty(studentId))
+            {
+                return RedirectToAction("Login", "Account"); // Chuyển hướng về trang đăng nhập nếu session không tồn tại
+            }
 
-            // Xử lý giao dịch mua giấy (cập nhật tài khoản sinh viên, thêm vào lịch sử giao dịch, vv.)
-            var student = _db.Students.SingleOrDefault(s => s.StudentId == "S001"); // Lấy thông tin sinh viên
+            var student = _db.Students.SingleOrDefault(s => s.StudentId == studentId);
             if (student == null)
             {
                 return NotFound("Student not found");
             }
 
-            // Kiểm tra số dư tài khoản
-            if (student.AccountBalance < totalAmount)
+            var paperDetails = _db.PaperDetailStudents
+                .Where(p => p.StudentId == studentId && (p.PaperTypeId == 1 || p.PaperTypeId == 2))
+                .ToList();
+
+            var paperPrices = _db.PaperTypes
+                .Where(p => p.PaperTypeId == 1 || p.PaperTypeId == 2)
+                .ToList();
+
+            if (model.TotalAmount > model.AccountBalance)
             {
-                return BadRequest("Insufficient account balance");
+                ViewBag.InvalidPaper = true;
+
+                // Re-populate model with existing values
+                model.A3Balance = paperDetails.FirstOrDefault(p => p.PaperTypeId == 1)?.Amount ?? 0;
+                model.A4Balance = paperDetails.FirstOrDefault(p => p.PaperTypeId == 2)?.Amount ?? 0;
+                model.AccountBalance = (decimal)student.AccountBalance;
+                model.A3Price = paperPrices.FirstOrDefault(p => p.PaperTypeId == 1)?.Price ?? 0;
+                model.A4Price = paperPrices.FirstOrDefault(p => p.PaperTypeId == 2)?.Price ?? 0;
+
+                return View(model);
             }
 
-            // Cập nhật giao dịch mua
+            // Thực hiện giao dịch
             var purchaseHistory = new PurchaseHistory
             {
                 StudentId = student.StudentId,
                 PurchasedDate = DateTime.Now,
-                TotalPurchased = totalAmount
+                TotalPurchased = model.TotalAmount
             };
 
             _db.PurchaseHistories.Add(purchaseHistory);
             _db.SaveChanges();
 
-            var pricesA3 = _db.PaperTypes
-                .Where(p =>p.PaperTypeId == 1)
-                .Select(p => p.Price)
-                .First();
-
-            var pricesA4 = _db.PaperTypes
-                .Where(p => p.PaperTypeId == 2)
-                .Select(p => p.Price)
-                .First();
-            // Cập nhật thông tin chi tiết mua
-            if (quantityA3 > 0)
+            // Xử lý chi tiết giao dịch
+            if (model.A3Quantity > 0)
             {
                 _db.PurchaseHistoryDetails.Add(new PurchaseHistoryDetail
                 {
                     PurchaseId = purchaseHistory.PurchaseId,
-                    PaperTypeId = 1, // A3
-                    PaperPurchased = quantityA3,
-                    PurchasedByType = (decimal)(quantityA3 * pricesA3)
+                    PaperTypeId = 1,
+                    PaperPurchased = model.A3Quantity,
+                    PurchasedByType = model.A3Quantity * model.A3Price
                 });
             }
 
-            if (quantityA4 > 0)
+            if (model.A4Quantity > 0)
             {
                 _db.PurchaseHistoryDetails.Add(new PurchaseHistoryDetail
                 {
                     PurchaseId = purchaseHistory.PurchaseId,
-                    PaperTypeId = 2, // A4
-                    PaperPurchased = quantityA4,
-                    PurchasedByType = (decimal)(quantityA4 * pricesA4)
+                    PaperTypeId = 2,
+                    PaperPurchased = model.A4Quantity,
+                    PurchasedByType = model.A4Quantity * model.A4Price
                 });
             }
 
-            // Cập nhật thông tin chi tiết mua giấy cho PaperDetailStudent
-            // Cập nhật giấy A3
-            var paperDetailA3 = _db.PaperDetailStudents
-                                    .SingleOrDefault(p => p.StudentId == student.StudentId && p.PaperTypeId == 1); // A3
-
+            // Cập nhật PaperDetailStudent
+            var paperDetailA3 = _db.PaperDetailStudents.SingleOrDefault(p => p.StudentId == studentId && p.PaperTypeId == 1);
             if (paperDetailA3 != null)
             {
-                paperDetailA3.Amount += quantityA3; // Cộng thêm số lượng A3
+                paperDetailA3.Amount += model.A3Quantity;
             }
             else
             {
-                // Nếu không có giấy A3, tạo mới
                 _db.PaperDetailStudents.Add(new PaperDetailStudent
                 {
-                    StudentId = student.StudentId,
-                    PaperTypeId = 1, // A3
-                    Amount = quantityA3
+                    StudentId = studentId,
+                    PaperTypeId = 1,
+                    Amount = model.A3Quantity
                 });
             }
 
-            // Cập nhật giấy A4
-            var paperDetailA4 = _db.PaperDetailStudents
-                                    .SingleOrDefault(p => p.StudentId == student.StudentId && p.PaperTypeId == 2); // A4
-
+            var paperDetailA4 = _db.PaperDetailStudents.SingleOrDefault(p => p.StudentId == studentId && p.PaperTypeId == 2);
             if (paperDetailA4 != null)
             {
-                paperDetailA4.Amount += quantityA4; // Cộng thêm số lượng A4
+                paperDetailA4.Amount += model.A4Quantity;
             }
             else
             {
-                // Nếu không có giấy A4, tạo mới
                 _db.PaperDetailStudents.Add(new PaperDetailStudent
                 {
-                    StudentId = student.StudentId,
-                    PaperTypeId = 2, // A4
-                    Amount = quantityA4
+                    StudentId = studentId,
+                    PaperTypeId = 2,
+                    Amount = model.A4Quantity
                 });
             }
 
-
-            _db.SaveChanges();
-            // Trừ tiền từ tài khoản sinh viên
-            student.AccountBalance -= totalAmount;
+            // Trừ số dư tài khoản
+            student.AccountBalance -= model.TotalAmount;
             _db.SaveChanges();
 
-            return RedirectToAction("Index"); // Redirect lại trang sau khi hoàn tất giao dịch
+            return RedirectToAction("Index");
         }
-
 
         private IActionResult HttpNotFound(string message)
         {
             return NotFound(new { error = message });
         }
-
     }
 }
