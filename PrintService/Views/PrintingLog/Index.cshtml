@@ -1,0 +1,129 @@
+﻿@using PrintService.ViewModels
+@model List<PrintingLogViewModel>
+
+<section class="home" style="overflow-y: auto;">
+
+    <div class="text" style="font-size: 15px;">
+        <span>Home</span> &gt; <span>Printing Log</span>
+    </div>
+    <div class="text" style="font-weight: bold; text-align:center;color:black;">Printing Log</div>
+
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card text-center" style="width:98%">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-auto">
+                        <div class="card-tools">
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tạo cơ sở mới</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="control-label"><strong>Tên cơ sở<span class="text-danger"> *</span></strong></label>
+                                                <input class="form-control" id="tencsCreate" placeholder="Elliot" />
+                                                <span class="text-danger" id="tencsSpanCreate"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label"><strong>Địa chỉ<span class="text-danger"> *</span></strong></label>
+                                                <input class="form-control" id="diachiCreate" placeholder="2A PhamVanDong" />
+                                                <span class="text-danger" id="diachiSpanCreate"></span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="btnCsCreate" class="btn btn-primary">Tạo</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="bs-stepper linear">
+                    <div class="bs-stepper-content">
+
+                        <div id="PartialViewCoSo">
+
+                            <table class="table table-striped">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Document Name</th>
+                                        <th>Paper</th>
+                                        <th>Copies</th>
+                                        <th>Requested Time</th>
+                                        <th>Finished Time</th>
+                                        <th>Is Colored</th>
+                                        <th>Is Doubled Side</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+
+                                    @foreach (PrintingLogViewModel prntLog in Model)
+                                    {
+                                        <tr>
+                                            <td>@prntLog.Id</td>
+                                            <td>@prntLog.DocumentName</td>
+                                            <td>@prntLog.PaperTypeName</td>
+                                            <td>@prntLog.NumberOfCopies</td>
+                                            <td>@prntLog.RequestTime</td>
+                                            <td>@prntLog.FinishedTime</td>
+                                            <td>
+                                                @if (prntLog.IsColored == true)
+                                                {
+                                                    <i class="bi bi-check-circle-fill text-success"></i> <!-- Bootstrap tick icon -->
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-x-circle-fill text-danger"></i> <!-- Bootstrap X icon -->
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @if (prntLog.IsDoubled == true)
+                                                {
+                                                    <i class="bi bi-check-circle-fill text-success"></i> <!-- Bootstrap tick icon -->
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-x-circle-fill text-danger"></i> <!-- Bootstrap X icon -->
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @if (prntLog.Status == 0)
+                                                {
+                                                    <i class="bi bi-hourglass-split text-warning"></i> <!-- Icon for printing not finished -->
+                                                }
+                                                else if (prntLog.Status == 1)
+                                                {
+                                                    <i class="bi bi-check-circle-fill text-success"></i> <!-- Icon for printing finished -->
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

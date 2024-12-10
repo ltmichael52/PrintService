@@ -69,7 +69,7 @@ namespace PrintService.Controllers
                 .Where(p => p.PaperTypeId == 1 || p.PaperTypeId == 2)
                 .ToList();
 
-            if (model.TotalAmount > model.AccountBalance)
+            if (model.TotalAmount > student.AccountBalance)
             {
                 ViewBag.InvalidPaper = true;
 
