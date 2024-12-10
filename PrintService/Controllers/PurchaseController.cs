@@ -44,6 +44,11 @@ namespace PrintService.Controllers
                 A4Price = paperPrices.FirstOrDefault(p => p.PaperTypeId == 2)?.Price ?? 0,
             };
 
+            if (TempData["SuccessPurchase"] != null)
+            {
+                ViewBag.SuccessPurchase = TempData["SuccessPurchase"];
+            }
+
             return View(model);
         }
 
@@ -153,6 +158,7 @@ namespace PrintService.Controllers
             // Trừ số dư tài khoản
             student.AccountBalance -= model.TotalAmount;
             _db.SaveChanges();
+            TempData["SuccessPurchase"] = true;
 
             return RedirectToAction("Index");
         }

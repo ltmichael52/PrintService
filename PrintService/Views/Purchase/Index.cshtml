@@ -21,7 +21,7 @@
                     <img class="paperimg" src="~/img/A4.png" />
                     <div style="margin-top:10px;">
                         <span>@String.Format("{0:N0}", Model.A4Price) Đ/ 1 sheet</span>
-    </div>
+                    </div>
                 </div>
                 <div class="paper">
                     <img class="paperimg" src="~/img/A3.png" />
@@ -46,11 +46,12 @@
         </div>
 
                 <div style="margin-top: 10px; margin-bottom:10px;">
-                    <span class="text" style="font-size:25px;margin-left:660px;font-weight:bold">Total bill : <span id="totalAmount">VNĐ</span></span>
+                    <span class="text" style="font-size:25px;margin-left:660px;font-weight:bold">Total bill : <span id="totalAmount">0 VNĐ</span></span>
         </div>
 
-                <button type="submit" class="buybtn">
-                    <span class="text" style="font-size: 20px;color: white;">Buy</span>
+                <div class="button-container" style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                    <button type="submit" class="buybtn" style="font-size: 20px; color: white;">Buy</button>
+                </div>
         </button>
     </form>
         </div>
@@ -82,14 +83,54 @@
          </div>
      </div>
  }
+        @if (ViewBag.SuccessPurchase == true)
+        {
+            <script>
+                document.getElementById("successBox").style.display = "block";
+            </script>
+            <div id="successBox" class="alert" role="alert" style="
+                 width: 50%;
+                 background-color: #ffffff;
+                 border: 1px solid #ddd;
+                 padding: 20px;
+                 border-radius: 5px;
+                 position: fixed;
+                 top: 10%;
+                 left: 50%;
+                 transform: translateX(-50%);
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                ">
+                <h4 class="alert-heading" style="color: green; margin: 0; font-weight: bold;">Purchase Successful</h4>
+                <p style="margin: 10px 0;">
+                    Your purchase has been completed successfully. Thank you for shopping!
+                </p>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                    <a href="#" id="closeSuccessButton" style="background-color: #ffffff; color: black; text-decoration: none; padding: 5px 15px; border: 1px solid black; border-radius: 3px;">Close</a>
+                </div>
+            </div>
+        }
+
 </section>
 
 @section Scripts {
     <script>
-                    document.getElementById("closeButton").addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default link behavior
-                document.getElementById("alertBox").style.display = "none"; // Hide the alert
-            });
+            var closeButton = document.getElementById("closeButton");
+            if (closeButton) {
+                closeButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    document.getElementById("alertBox").style.display = "none";
+                });
+            }
+
+            var closeSuccessButton = document.getElementById("closeSuccessButton");
+            if (closeSuccessButton) {
+                closeSuccessButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    document.getElementById("successBox").style.display = "none";
+                });
+            }
+
+
         function increase(id) {
             let input = document.getElementById(id);
             input.value = parseInt(input.value) + 1;
@@ -120,20 +161,6 @@
                 document.getElementById('A3Quantity').value = quantityA3;
                 document.getElementById('A4Quantity').value = quantityA4;
                 document.getElementById('TotalAmount').value = total;
-            }
-
-        function increase(id) {
-            let input = document.getElementById(id);
-            input.value = parseInt(input.value) + 1;
-            calculateTotal();
-            }
-
-        function decrease(id) {
-            let input = document.getElementById(id);
-            if (input.value > 0) {
-                input.value = parseInt(input.value) - 1;
-                calculateTotal();
-                }
             }
     </script>
 }
