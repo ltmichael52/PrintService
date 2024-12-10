@@ -54,6 +54,9 @@ namespace PrintService.Controllers
                 return View(prntConfig);
             }
 
+            var vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            DateTime vietnamTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vietnamTimeZone);
+
             int documentId = SaveFileToServer(prntConfig.File);
 
             PrintingLog printingLog = new PrintingLog
@@ -66,7 +69,7 @@ namespace PrintService.Controllers
                 IsDoubleSided = prntConfig.IsDoubledSide,
                 Copies = prntConfig.NumberOfCopies,
                 Status = 0,
-                StartTime = DateTime.Now,
+                StartTime = vietnamTime,
             };
 
             db.PrintingLogs.Add(printingLog);

@@ -39,6 +39,8 @@ namespace PrintService.Controllers
         {
 
             List<Printer> printerList = db.Printers.Include(x=>x.PrintingLogs).Where(x=>x.IsActive == true).ToList();
+            var vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            DateTime vietnamTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vietnamTimeZone);
 
             foreach (Printer printer in printerList)
             {
@@ -46,7 +48,7 @@ namespace PrintService.Controllers
                 if (prntSmallestLog != null)
                 {
                     prntSmallestLog.Status = 1;
-                    prntSmallestLog.EndTime = DateTime.Now;
+                    prntSmallestLog.EndTime = vietnamTime; ;
                 }
             }
             db.SaveChanges();

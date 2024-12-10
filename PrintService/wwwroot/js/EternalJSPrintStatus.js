@@ -3,6 +3,7 @@ var isloading = false;
 
 // Function to be executed every 3 minutes
 function taskToRun() {
+    console.log("Run update");
     if (!isloading) {
         isloading = true; // Set loading state to true
         $.ajax({
@@ -14,7 +15,6 @@ function taskToRun() {
             },
             error: function (xhr, status, error) {
                 console.error("Error changing printing status:", error);
-                alert("Failed to change printing status.");
                 isloading = false; // Reset loading state
             }
         });
@@ -24,4 +24,4 @@ function taskToRun() {
 }
 
 // Run the function every 1 minutes
-setInterval(taskToRun, 60000);
+setInterval(taskToRun, 10000);
