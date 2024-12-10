@@ -24,4 +24,4 @@ function taskToRun() {
 }
 
 // Run the function every 1 minutes
-setInterval(taskToRun, 10000);
+setInterval(taskToRun, 20000);
