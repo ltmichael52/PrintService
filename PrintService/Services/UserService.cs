@@ -16,7 +16,7 @@ public class UserService : IUserService
 
     public async Task<bool> UpdateBalance(decimal amount)
     {
-        var student = _contextAccessor.HttpContext.GetCurrentStudent(_context);
+        var student = _contextAccessor.HttpContext.GetCurrentStudent();
 
         try
         {

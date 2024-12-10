@@ -1,0 +1,67 @@
+﻿@{
+    var successMessage = TempData["SuccessMessage"] as string;
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div id="popupSuccess" class="popup success">
+        @successMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div id="popupError" class="popup error">
+        @errorMessage
+    </div>
+}
+
+<script>
+    // Hàm để hiển thị popup và ẩn nó sau 3 giây
+    function showPopup(id) {
+        var popup = document.getElementById(id);
+        if (popup) {
+            popup.style.display = "block"; // Hiển thị popup
+            setTimeout(function() {
+                popup.style.display = "none"; // Ẩn popup sau 3 giây
+            }, 3000);
+        }
+    }
+
+    // Hiển thị popup thành công nếu có thông báo
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <text>showPopup('popupSuccess');</text>
+    }
+
+    // Hiển thị popup lỗi nếu có thông báo
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <text>showPopup('popupError');</text>
+    }
+</script>
+<style>
+    .popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        z-index: 1000;
+        width: auto;
+    }
+
+        .popup.success {
+            background-color: #28a745; /* Xanh lá */
+        }
+
+        .popup.error {
+            background-color: #dc3545; /* Đỏ */
+        }
+</style>

@@ -234,8 +234,8 @@ public partial class PrintDbContext : DbContext
             entity.ToTable("RechargeHistory");
 
             entity.Property(e => e.RechargeId)
-                .HasMaxLength(255)
                 .HasColumnName("RechargeID");
+
             entity.Property(e => e.Amonut).HasColumnType("money");
             entity.Property(e => e.RechargeMethod).HasMaxLength(255);
             entity.Property(e => e.RechargedDate).HasColumnType("datetime");
