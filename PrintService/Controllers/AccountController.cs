@@ -48,5 +48,14 @@ namespace PrintService.Controllers
 
             return View(account);
         }
+
+        public IActionResult Logout()
+        {
+            // Xóa thông tin người dùng khỏi Session
+            HttpContext.Session.Remove("AccountID");
+            HttpContext.Session.Remove("TypeAccount");
+            // Chuyển hướng đến trang Login
+            return RedirectToAction("Login", "Account");
+        }
     }
 }
