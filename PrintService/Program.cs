@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PrintService.Extentions;
 using PrintService.Models;
 using PrintService.Payments;
 using PrintService.Services;
@@ -22,6 +23,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRechargeService, RechargeService>();
 
 builder.Services.AddTransient<PayPalService>();
 builder.Services.AddTransient<VnPayService>();
@@ -37,6 +39,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<PrintDbContext>();
+UserExtension.Initialize(context);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -31,6 +31,7 @@ public class VnPayLibrary
         var vnpSecureHash =
             collection.FirstOrDefault(k => k.Key == "vnp_SecureHash").Value; //hash của dữ liệu trả về
         var orderInfo = vnPay.GetResponseData("vnp_OrderInfo");
+        var amount = "11111111";
 
         var checkSignature =
             vnPay.ValidateSignature(vnpSecureHash, hashSecret); //check Signature
@@ -50,7 +51,8 @@ public class VnPayLibrary
             PaymentId = vnPayTranId.ToString(),
             TransactionId = vnPayTranId.ToString(),
             Token = vnpSecureHash,
-            VnPayResponseCode = vnpResponseCode
+            VnPayResponseCode = vnpResponseCode,
+            Amount = amount
         };
     }
     public string GetIpAddress(HttpContext context)

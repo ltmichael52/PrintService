@@ -1,11 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace PrintService.Extentions;
+﻿namespace PrintService.Extentions;
 
 using Models;
 
-public static class UserExtention
+public static class UserExtension
 {
+
+    private static PrintDbContext _context;
+
+    public static void Initialize(PrintDbContext context)
+    {
+        _context = context;
+    }
+
     /// <summary>
     /// Gets the AccountID from the session.
     /// </summary>
@@ -20,9 +26,8 @@ public static class UserExtention
     /// Gets the logged-in user details from the database using AccountID.
     /// </summary>
     /// <param name="httpContext">The HTTP context.</param>
-    /// <param name="dbContext">The database context.</param>
     /// <returns>The logged-in user or null if not found.</returns>
-    public static Account? GetLoggedInUser(this HttpContext httpContext, DbContext dbContext)
+    public static Account? GetLoggedInUser(this HttpContext httpContext)
     {
         var accountId = httpContext.GetAccountId();
 
@@ -32,20 +37,18 @@ public static class UserExtention
         }
 
         // Query the database for the user with the given AccountID
-        return dbContext.Set<Account>().FirstOrDefault(x => x.AccountId == accountId);
+        return _context.Accounts.First(p => p.AccountId == accountId);
     }
 
     /// <summary>
     /// Gets the currently logged-in student using the AccountID from the session.
     /// </summary>
     /// <param name="httpContext">The current HTTP context.</param>
-    /// <param name="dbContext">The database context.</param>
     /// <returns>The logged-in student or null if not found.</returns>
-    public static Student? GetCurrentStudent(this HttpContext httpContext, DbContext dbContext)
+    public static Student? GetCurrentStudent(this HttpContext httpContext)
     {
         var accountId = httpContext.GetAccountId();
 
-        return dbContext.Set<Student>().FirstOrDefault(x => x.StudentNavigation.AccountId == accountId);
+        return _context.Students.FirstOrDefault(p => p.StudentNavigation.AccountId == accountId);
     }
-
 }
