@@ -11,10 +11,10 @@
             <div class="text" style="font-size:20px;width:600px;margin-bottom: 40px;">
                 Convenient, fast, and efficient! A service designed to help students easily manage and fulfill all printing needs across campus."
             </div>
-            <a href="/Printer/Index" class="printbtn">Print now</a>
+            <a asp-controller="Printer" asp-action="Index" class="printbtn">Print now</a>
         </div>
         <div class="imgbox">
-            <img src="~/img/welcome.png" class="imgwc" />
+            <img src="@Url.Content("~/img/welcome.png")" class="imgwc" />
         </div>
     </div>
 </section>

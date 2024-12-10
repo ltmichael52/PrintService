@@ -3,7 +3,9 @@
     <header>
         <div class="image-text">
             <span class="image">
-                <a asp-controller="Home" asp-action="Index"><img src="img/image.png" alt="" width="40" height="40"></a>
+                <a asp-controller="Home" asp-action="Index">
+                    <img src="@Url.Content("~/img/image.png")" alt="" width="40" height="40">
+                </a>
             </span>
 
             <div class="text logo-text">

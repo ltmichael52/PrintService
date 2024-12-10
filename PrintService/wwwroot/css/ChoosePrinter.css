@@ -1,7 +1,8 @@
 .container {
     display: flex;
-    align-items: flex-start; /* ??m b?o c?n trên cùng hàng */
-    gap: 50px; /* Kho?ng cách gi?a hai h?p */
+    align-items: flex-start; 
+    gap: 50px; 
+    /*margin-left:30px;*/
 }
 
 .searchbox {
@@ -9,8 +10,8 @@
     border: 1px solid #ddd;
     border-radius: 12px;
     padding: 12px;
-    margin-top: 32px; /* Có th? gi? nguyên ho?c b? */
-    flex: 3; /* Tùy ch?n, ?? chi?m nhi?u không gian h?n */
+    margin-top: 32px;
+    flex: 3; 
 }
 
 .filterbutton {
@@ -18,12 +19,13 @@
     border: 1px solid #ddd;
     border-radius: 12px;
     padding: 12px;
-    margin-top: 32px; /* ??m b?o cùng c?n ch?nh theo hàng */
-    flex: 1; /* Tùy ch?n, ?? chi?m ít không gian h?n */
+    margin-top: 32px; 
+    flex: 1; 
 }
 
 .printercontainer {
     margin-left: 2%;
+    
 }
 
 .printerbox {
@@ -45,21 +47,34 @@
     margin-left: 5%;
 }
 
+.printer-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.printer-link:hover{
+    text-decoration:none;
+}
+
 .modeltext {
-    font-size: 13px;
-    text-align: center;
+    font-size: 16px;
+  
 }
 
 .rightinfo {
     margin-top: 10px;
     flex: 1;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
+    text-align:left;
+
 }
 
 .leftinfo {
     margin-top: 10px;
     flex: 1;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
+    text-align: left;
+    
 }

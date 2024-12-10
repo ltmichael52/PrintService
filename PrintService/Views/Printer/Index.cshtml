@@ -13,13 +13,14 @@
     <div class="text" style="font-weight: bold; text-align:center;color:black;">Choose a printer</div>
     <div class="container">
         <button class="filterbutton">
-            <img src="~/img/filter.png" style="height:25px;width:25px" />
+            <img src="@Url.Content("~/img/filter.png")" style="height:25px;width:25px" />
+
             Filter results
         </button>
-        <input class="searchbox" placeholder="Search" />
+        <input class="searchbox" placeholder="Search Printer Model" />
     </div>
-    <div class="printercontainer">
-        <div class="row">
+    <div class="printercontainer d-flex justify-content-center align-items-center">
+        <div class="row text-center">
             @foreach (ShowPrinter printer in Model)
             {
                 <div class="printerbox">
