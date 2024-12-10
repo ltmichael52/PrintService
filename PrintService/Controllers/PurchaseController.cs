@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrintService.Models;
+using PrintService.Models.Authentication;
 using PrintService.ViewModels;
 
 namespace PrintService.Controllers
 {
+    [AuthenticationM_S]
     public class PurchaseController : Controller
     {
         private readonly PrintDbContext _db = new PrintDbContext();

@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using PrintService.Models;
+using PrintService.Models.Authentication;
 using PrintService.ViewModels;
 
 namespace PrintService.Controllers
 {
+    [AuthenticationM_S]
     public class PrinterController : Controller
     {
         private readonly PrintDbContext db;

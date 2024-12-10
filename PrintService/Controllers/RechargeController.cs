@@ -6,9 +6,10 @@ namespace PrintService.Controllers;
 using Enums;
 using Extentions;
 using Payments;
+using PrintService.Models.Authentication;
 using Services;
 using Validators.Payment;
-
+[AuthenticationM_S]
 public class RechargeController : Controller
 {
     private readonly PaymentContext _paymentContext;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrintService.Models;
+using PrintService.Models.Authentication;
 using PrintService.ViewModels;
 using Renci.SshNet;
 using System.IO;
@@ -10,6 +11,7 @@ using ConnectionInfo = Renci.SshNet.ConnectionInfo;
 
 namespace PrintService.Controllers
 {
+    [AuthenticationM_S]
     public class PrintProcessController : Controller
     {
         private readonly PrintDbContext db;
@@ -97,7 +99,7 @@ namespace PrintService.Controllers
         
         public int SaveFileToServer(IFormFile file)
         {
-            string remoteHost = "35.187.250.71";
+            string remoteHost = "34.92.54.35";
             string username = "ltmichael";
 
             string remoteDirectory = "/home/ltmichael/uploads";
